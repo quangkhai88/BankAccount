@@ -38,6 +38,12 @@ public class AccountTest {
 		this.account.deposit(new BigDecimal(-10));
 	}
 	
+	@Test(expected = IllegalArgumentException.class)
+	public void depositNullValueAndGetException() {
+		//When
+		this.account.deposit(null);
+	}
+	
 	@Test
 	public void depositWithCorrectAmountValue() {
 		//Given
@@ -46,6 +52,29 @@ public class AccountTest {
 		BigDecimal balance = this.account.getBalance();
 		//Then
 		assertEquals(balance, new BigDecimal(150));
+	}
+	
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void withdrawInvalidAmountAndGetException() {
+		//When
+		this.account.withdraw(new BigDecimal(-10));
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void withdrawNullValueAndGetException() {
+		//When
+		this.account.withdraw(null);
+	}
+	
+	@Test
+	public void withdrawWithCorrectAmountValue() {
+		//Given
+		this.account.withdraw(new BigDecimal(40));
+		//When
+		BigDecimal balance = this.account.getBalance();
+		//Then
+		assertEquals(balance, new BigDecimal(60));
 	}
 	
 }

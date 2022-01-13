@@ -13,12 +13,22 @@ public class Account {
 	
 	public void deposit(BigDecimal amount) {
 		this.checkAmount(amount);
-		this.balance = this.balance.add(amount);
+		this.addToAccount(amount);
 	}
 	
+	public void withdraw(BigDecimal amount) {
+		this.checkAmount(amount);
+		amount = new BigDecimal(0).subtract(amount);
+		this.addToAccount(amount);
+	}
+	
+	private void addToAccount(BigDecimal amount) {
+		this.balance = this.balance.add(amount);
+	}
+
 	private void checkAmount(BigDecimal amount) {
-		if (amount.doubleValue()< 0) {
-			throw new IllegalArgumentException("Amount must be greater than Zero");
+		if (amount == null || amount.doubleValue()< 0) {
+			throw new IllegalArgumentException("Amount must be not null and greater than Zero");
 		}
 	}
 	
