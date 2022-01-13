@@ -77,4 +77,12 @@ public class AccountTest {
 		assertEquals(balance, new BigDecimal(60));
 	}
 	
+	@Test
+	public void printAllOperationHistory() {
+		this.account.deposit(new BigDecimal(100));
+		this.account.withdraw(new BigDecimal(30));
+		
+		this.account.getHistory();
+	}
+	
 }

@@ -23,8 +23,8 @@ public class Account {
 	
 	public void withdraw(BigDecimal amount) {
 		this.checkAmount(amount);
-		amount = new BigDecimal(0).subtract(amount);
-		this.addToAccount(amount);
+		BigDecimal newAmount = new BigDecimal(0).subtract(amount);
+		this.addToAccount(newAmount);
 		this.statement.addOperation(new Operation(amount, balance, LocalDate.now(), OperationType.WITHDRAW));
 	}
 	
@@ -40,6 +40,10 @@ public class Account {
 	
 	public BigDecimal getBalance() {
 		return balance;
+	}
+	
+	public void getHistory() {
+		this.statement.printStatement();
 	}
 
 }
