@@ -7,8 +7,13 @@ public class Account {
 	private BigDecimal balance;
 	
 	public Account(BigDecimal init) {
-		checkAmount(init);
+		this.checkAmount(init);
 		this.balance = init;
+	}
+	
+	public void deposit(BigDecimal amount) {
+		this.checkAmount(amount);
+		this.balance = this.balance.add(amount);
 	}
 	
 	private void checkAmount(BigDecimal amount) {

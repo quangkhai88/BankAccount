@@ -32,4 +32,20 @@ public class AccountTest {
 		assertEquals(balance, new BigDecimal(100));
 	}
 	
+	@Test(expected = IllegalArgumentException.class)
+	public void depositInvalidAmountAndGetException() {
+		//When
+		this.account.deposit(new BigDecimal(-10));
+	}
+	
+	@Test
+	public void depositWithCorrectAmountValue() {
+		//Given
+		this.account.deposit(new BigDecimal(50));
+		//When
+		BigDecimal balance = this.account.getBalance();
+		//Then
+		assertEquals(balance, new BigDecimal(150));
+	}
+	
 }
