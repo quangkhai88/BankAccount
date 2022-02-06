@@ -5,11 +5,10 @@ import java.util.List;
 
 public class Statement {
 	
-	private List<Operation> operations;
-	
+	private final List<Operation> operations;
 	
 	public Statement() {
-		this.operations = new ArrayList<Operation>();
+		this.operations = new ArrayList<>();
 	}
 	
 	public void addOperation(Operation operation) {
