@@ -7,7 +7,7 @@ public class Account {
 	
 	private BigDecimal balance;
 	
-	private Statement statement;
+	private final Statement statement;
 	
 	public Account(BigDecimal init) {
 		this.checkAmount(init);
@@ -43,7 +43,7 @@ public class Account {
 	}
 	
 	public void getHistory() {
-		this.statement.printStatement();
+	//	this.statement.printStatement();
 	}
 
 }

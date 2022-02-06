@@ -4,15 +4,15 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class Operation {
+public final class Operation {
 	
-	private BigDecimal amount;
+	private final BigDecimal amount;
 	
-	private BigDecimal balance;
+	private final BigDecimal balance;
 	
-	private LocalDate date;
+	private final LocalDate date;
 	
-	private OperationType type;
+	private final OperationType type;
 	
 
 	public Operation(BigDecimal amount, BigDecimal balance, LocalDate date, OperationType type) {
