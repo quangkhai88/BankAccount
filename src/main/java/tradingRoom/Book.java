@@ -8,23 +8,20 @@ import java.util.List;
  * @author Quang-Khai TRAN
  */
 
-public final class Book {
+public final class Book  implements TradingCollection{
 
     private final List<Wallet> wallets = new ArrayList<>();
     private final List<Book> books = new ArrayList<>();
 
+    @Override
     public BigDecimal getValue() {
-        BigDecimal walletValue = getWalletsValue();
-        BigDecimal booksValue = getBooksValue();
+        BigDecimal walletValue = getCollectionValue(this.wallets);
+        BigDecimal booksValue = getCollectionValue(this.books);
         return booksValue.add(walletValue);
     }
 
-    private BigDecimal getBooksValue() {
-        return  this.books.stream().map(Book::getValue).reduce(new BigDecimal(0), BigDecimal::add);
-    }
-
-    private BigDecimal getWalletsValue() {
-        return this.wallets.stream().map(Wallet::getValue).reduce(new BigDecimal(0), BigDecimal::add);
+    private BigDecimal getCollectionValue(List<? extends TradingCollection> list) {
+        return list.stream().map(TradingCollection::getValue).reduce(new BigDecimal(0), BigDecimal::add);
     }
 
     public void addBook(Book book){
