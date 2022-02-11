@@ -2,6 +2,7 @@ package tradingRoom;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -19,5 +20,12 @@ public final class Book  implements TradingCollection{
 
     public void addCollection(TradingCollection tradingCollection) {
         this.tradingCollections.add(tradingCollection);
+    }
+
+    /**
+     * using Collections.unmodifiableList to make the class stay immutable
+     */
+    public List<TradingCollection> getTradingCollections() {
+        return Collections.unmodifiableList(this.tradingCollections);
     }
 }
