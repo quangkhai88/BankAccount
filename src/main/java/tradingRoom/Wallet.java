@@ -2,6 +2,7 @@ package tradingRoom;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public final class Wallet implements TradingCollection {
@@ -15,5 +16,9 @@ public final class Wallet implements TradingCollection {
     @Override
     public BigDecimal getValue() {
         return operations.stream().map(Operation::getValue).reduce(new BigDecimal(0), BigDecimal::add);
+    }
+
+    public List<Operation> getOperations(){
+        return Collections.unmodifiableList(this.operations);
     }
 }
