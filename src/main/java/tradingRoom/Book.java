@@ -27,4 +27,11 @@ public final class Book {
         return this.wallets.stream().map(Wallet::getValue).reduce(new BigDecimal(0), BigDecimal::add);
     }
 
+    public void addBook(Book book){
+        this.books.add(book);
+    }
+
+    public void addWallet(Wallet wallet) {
+        this.wallets.add(wallet);
+    }
 }
