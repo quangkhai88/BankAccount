@@ -13,16 +13,9 @@ public class AccountTest {
 	
 	@Before
 	public void init() {
-		this.account = new Account(new BigDecimal(100));
+		this.account = new Account(Amount.of(new BigDecimal(100)));
 	}
 	
-	@Test(expected = IllegalArgumentException.class)
-	public void initAccountWithNegativeAmountThenGetException() {
-		//Given
-		//When
-		this.account = new Account(new BigDecimal(-100));
-	}
-
 	@Test
 	public void initAccountWithCorrectAmountValue() {
 		//Given
@@ -35,7 +28,7 @@ public class AccountTest {
 	@Test(expected = IllegalArgumentException.class)
 	public void depositInvalidAmountAndGetException() {
 		//When
-		this.account.deposit(new BigDecimal(-10));
+		this.account.deposit(Amount.of(new BigDecimal(-10)));
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
@@ -47,7 +40,7 @@ public class AccountTest {
 	@Test
 	public void depositWithCorrectAmountValue() {
 		//Given
-		this.account.deposit(new BigDecimal(50));
+		this.account.deposit(Amount.of(new BigDecimal(50)));
 		//When
 		BigDecimal balance = this.account.getBalance();
 		//Then
@@ -58,7 +51,7 @@ public class AccountTest {
 	@Test(expected = IllegalArgumentException.class)
 	public void withdrawInvalidAmountAndGetException() {
 		//When
-		this.account.withdraw(new BigDecimal(-10));
+		this.account.withdraw(Amount.of(new BigDecimal(-10)));
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
@@ -70,7 +63,7 @@ public class AccountTest {
 	@Test
 	public void withdrawWithCorrectAmountValue() {
 		//Given
-		this.account.withdraw(new BigDecimal(40));
+		this.account.withdraw(Amount.of(new BigDecimal(40)));
 		//When
 		BigDecimal balance = this.account.getBalance();
 		//Then
@@ -79,8 +72,8 @@ public class AccountTest {
 	
 	@Test
 	public void printAllOperationHistory() {
-		this.account.deposit(new BigDecimal(100));
-		this.account.withdraw(new BigDecimal(30));
+		this.account.deposit(Amount.of(new BigDecimal(100)));
+		this.account.withdraw(Amount.of(new BigDecimal(30)));
 		
 		this.account.getHistory();
 	}

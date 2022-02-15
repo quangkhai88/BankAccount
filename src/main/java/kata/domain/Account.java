@@ -4,42 +4,45 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class Account {
+
+	private Amount amount;
 	
-	private BigDecimal balance;
-	
-	private final Statement statement;
-	
-	public Account(BigDecimal init) {
-		this.checkAmount(init);
-		this.balance = init;
-		this.statement = new Statement();
+	private final Statement statement = new Statement();
+
+	public Account(Amount amount) {
+		this.amount = amount;
 	}
 	
-	public void deposit(BigDecimal amount) {
-		this.checkAmount(amount);
+	public void deposit(Amount amount) {
 		this.addToAccount(amount);
-		this.statement.addOperation(new Operation(amount, balance, LocalDate.now(), OperationType.DEPOSIT));
-	}
-	
-	public void withdraw(BigDecimal amount) {
-		this.checkAmount(amount);
-		BigDecimal newAmount = new BigDecimal(0).subtract(amount);
-		this.addToAccount(newAmount);
-		this.statement.addOperation(new Operation(amount, balance, LocalDate.now(), OperationType.WITHDRAW));
-	}
-	
-	private void addToAccount(BigDecimal amount) {
-		this.balance = this.balance.add(amount);
+		addOperation(amount, OperationType.DEPOSIT);
 	}
 
-	private void checkAmount(BigDecimal amount) {
-		if (amount == null || amount.doubleValue()< 0) {
-			throw new IllegalArgumentException("Amount must be not null and greater than Zero");
+	public void withdraw(Amount amount) {
+		this.checkAmountToWithDraw(amount);
+		this.subtract(amount);
+		addOperation(amount, OperationType.WITHDRAW);
+	}
+
+	private void addOperation(Amount amount, OperationType type) {
+		this.statement.addOperation(new Operation(amount.value(), getBalance(), LocalDate.now(), type));
+	}
+
+	private void subtract(Amount amount) {
+		this.amount = this.amount.subtract(amount);
+	}
+	private void addToAccount(Amount amount) {
+		this.amount = this.amount.add(amount);
+	}
+
+	private void checkAmountToWithDraw(Amount amount) {
+		if (this.amount.isLessThan(amount)) {
+			throw new IllegalArgumentException("Not enough to withdraw");
 		}
 	}
 	
 	public BigDecimal getBalance() {
-		return balance;
+		return amount.value();
 	}
 	
 	public void getHistory() {
