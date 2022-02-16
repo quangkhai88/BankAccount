@@ -7,6 +7,10 @@ public final class Amount {
 
     private final BigDecimal amount;
 
+    private enum AmountOperator {
+        ADD, SUBTRACT;
+    }
+
     private Amount(BigDecimal amount) {
         if (amount == null || amount.doubleValue() < 0)
             throw new IllegalArgumentException("Invalid value");
@@ -21,14 +25,23 @@ public final class Amount {
         return this.amount;
     }
 
+    private  Amount operate(Amount amount, AmountOperator operator) {
+        if (amount == null || operator == null) throw new IllegalArgumentException("Not null please");
+        switch (operator) {
+            case ADD:
+                return new Amount(this.value().add(amount.value()));
+            case SUBTRACT:
+                return new Amount(this.value().subtract(amount.value()));
+        }
+        return this;
+    }
+
     public Amount add(Amount amountToAdd) {
-        if (amountToAdd == null) throw new IllegalArgumentException("Not null please");
-        return new Amount(this.value().add(amountToAdd.value()));
+        return this.operate(amountToAdd, AmountOperator.ADD);
     }
 
     public Amount subtract(Amount amountToSub) {
-        if (amountToSub == null) throw new IllegalArgumentException("Not null please");
-        return new Amount(this.value().subtract(amountToSub.value()));
+        return this.operate(amountToSub, AmountOperator.SUBTRACT);
     }
 
     public boolean isGreaterThan(Amount amount) {
